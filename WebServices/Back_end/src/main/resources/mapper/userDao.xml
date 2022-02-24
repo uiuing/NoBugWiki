@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.uiuing.Back_end.dao.userDao">
+    <resultMap type="com.uiuing.Back_end.entity.user" id="userResult">
+        <result property="name" column="name"/>
+        <result property="email" column="email"/>
+        <result property="password" column="password"/>
+
+    </resultMap>
+    <select id="select_email" resultMap="userResult">
+        select email from user where email = #{email};
+    </select>
+    <select id="select_name" resultMap="userResult">
+        select name from user where name = #{name};
+    </select>
+    <select id="select_password" resultMap="userResult">
+        select password from user where email = #{email} and password = #{password}; 
+    </select>
+    <select id="select_all" resultMap="userResult">
+        select * from user where email = #{email}; 
+    </select>
+    <insert id="insert_user" >
+        insert into user values (#{email},#{name},#{password});
+    </insert>
+
+    <resultMap type="com.uiuing.Back_end.entity.direction" id="directionResult">
+    <result property="backend" column="backend"/>
+    <result property="linuxom" column="linuxom"/>
+    <result property="cloudbigdata" column="cloudbigdata"/>
+    <result property="database_d" column="database_d"/>
+    <result property="netsecurity" column="netsecurity"/>
+    <result property="frontend" column="frontend"/>
+    <result property="computermajor" column="computermajor"/>
+    <result property="ai" column="ai"/>
+        
+    </resultMap>
+    <select id="select_direction" resultMap="directionResult">
+        select * from direction where email = #{email};
+    </select>
+    <update id="update_direction">
+        update direction set #{obj}=#{obj}+1 where email = #{email};
+    </update>
+</mapper>

@@ -1,0 +1,193 @@
+<meta name="viewport" content="width=500,user-scalable=no">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.2/index.min.js"></script>
+<link href="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.2/theme-chalk/index.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<style>
+
+</style>
+<div id="app" align="center">
+    <div id="loa" style="height:100%;width:100%;" v-loading="loading_all" element-loading-text="正在拼命加载中..୧(๑•̀⌄•́๑)૭">
+    </div>
+    <!--网页内容整体-->
+    <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab">
+        <!--提示-->
+        <div role="tooltip" id="el-tooltip-5519" class="el-tooltip__popper is-dark">
+            <div x-arrow="" class="popper__arrow" style="left: 69px;"></div>
+        </div>
+        <!--工具栏-->
+        <div class="more">
+            <el-tooltip class="item" effect="dark" content="跳转至该网站" placement="top">
+                <div id="share1" class="share more_body">
+                    <svg id="share2" style="margin-top:8px" t="1624364545599" class="icon" viewBox="0 0 1024 1024"
+                        version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2483" width="25" height="25">
+                        <path id="share3"
+                            d="M1001.175714 593.762001L700.806246 293.324796a76.091491 76.091491 0 0 0-107.566725 0 76.023754 76.023754 0 0 0 0 107.544146l171.713884 171.826779H152.653982v-115.288769a76.046333 76.046333 0 0 0-152.115245 0v152.092666c0 6.931777 2.145012 13.253918 3.951338 19.621218-1.806326 6.389879-3.951339 12.644283-3.951338 19.621218a76.068912 76.068912 0 0 0 76.046333 76.068912h686.020111L593.239521 894.131468a76.046333 76.046333 0 1 0 107.566725 107.566726L1001.175714 701.328726a76.091491 76.091491 0 0 0 0-107.566725z"
+                            fill="#1296db" p-id="2484"></path>
+                    </svg>
+                </div>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="目录" placement="bottom">
+                <div id="catalogue1" class="catalogue more_body">
+                    <svg id="catalogue2" style="margin-top:10px" t="1624364565172" class="icon" viewBox="0 0 1024 1024"
+                        version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3421" width="25" height="25">
+                        <path id="catalogue3"
+                            d="M121.5 458.5C70 458.5 28 415.2 28 362.1V116.5c0-53.1 42-96.4 93.5-96.4h237.7c51.5 0 93.4 43.2 93.4 96.4V362c0 53.2-41.9 96.5-93.4 96.5H121.5z m0-358c-8.6 0-15.6 7.2-15.6 16V362c0 8.7 7.1 16 15.6 16h237.7c8.4 0 15.5-7.3 15.5-16V116.5c0-8.8-7-16-15.5-16H121.5zM662.8 458.5c-51.6 0-93.6-43.3-93.6-96.5V116.5c0-53.1 42-96.4 93.6-96.4h237.7c51.5 0 93.5 43.2 93.5 96.4V362c0 53.2-41.9 96.5-93.5 96.5H662.8z m0-358c-8.5 0-15.6 7.3-15.6 16V362c0 8.7 7.2 16 15.6 16h237.7c8.5 0 15.6-7.3 15.6-16V116.5c0-8.8-7-16-15.6-16H662.8zM121.5 1007.5C70 1007.5 28 964.2 28 911V665.3c0-53.1 42-96.4 93.5-96.4h237.7c51.5 0 93.4 43.2 93.4 96.4V911c0 53.2-41.9 96.5-93.4 96.5H121.5z m0-358.2c-8.5 0-15.6 7.3-15.6 16V911c0 8.7 7.1 16.1 15.6 16.1h237.7c8.4 0 15.5-7.4 15.5-16.1V665.3c0-8.7-7.1-16-15.5-16H121.5zM662.8 1007.5c-51.6 0-93.6-43.3-93.6-96.5V665.3c0-53.1 42-96.4 93.6-96.4h237.7c51.5 0 93.5 43.2 93.5 96.4V911c0 53.2-41.9 96.5-93.5 96.5H662.8z m0-358.2c-8.5 0-15.6 7.3-15.6 16V911c0 8.7 7.2 16.1 15.6 16.1h237.7c8.5 0 15.6-7.4 15.6-16.1V665.3c0-8.7-7.2-16-15.6-16H662.8z"
+                            fill="#1296DB" p-id="3422"></path>
+                    </svg>
+                </div>
+            </el-tooltip>
+        </div>
+        <!--内容-->
+        <el-tab-pane v-loading="loading" element-loading-text="正在拼命加载中..୧(๑•̀⌄•́๑)૭"
+            v-for="(item, index) in editableTabs" :key="item.name" :label="item.title_min" :name="item.name">
+        </el-tab-pane>
+    </el-tabs>
+    <!--目录-->
+    <el-dialog title="目录" id="ml" :visible.sync="CatalogueVisible">
+        <el style="width:100%;font-size:12px" type="primary" v-for="(item, index) in editableTabs" :key="item.name"
+            :label="item.title_min" :href="'javascript:open_ml('+item.name+')'">
+            <div style="margin-bottom: 10px;">
+                <el-button class="ml_button" type="success" @click="open_ml(item.name)" plain>
+                    <div
+                        style="font-size:9px; width:100%;word-wrap:break-word; word-break:break-all; overflow: hidden;">
+                        {{item.title}}
+                    </div>
+                </el-button>
+            </div>
+        </el>
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="CatalogueVisible = false">确 定</el-button>
+        </div>
+    </el-dialog>
+
+
+
+</div>
+<script type="text/javascript">
+
+    //拟定高度
+    var p_window = window.top;
+    var height = $(p_window).height() - 41 + "px";
+
+    // 旧地址
+    var old = 1;
+
+    // 加载内容
+    function loadings(index) {
+        if (document.getElementById("pane-" + index).innerHTML === "") {
+            Main.loading = true;
+            document.getElementById("pane-" + index).innerHTML = '<iframe id="PG-' + index + '" src="' + Main.editableTabs[index - 1].url + '" width="100%" frameBorder="0" height="' + height + '" sandbox=" allow-same-origin allow-scripts"></iframe>';
+            setTimeout(function () {
+                Main.loading = false;
+            }, 500);
+        }
+    };
+
+    // 目录打开 点击事件
+    function open_ml(name) {
+        Main.editableTabsValue = name;
+        Main.CatalogueVisible = false;
+        loadings(name);
+        // 将上一个按钮颜色去掉
+        let obj_class_old = document.getElementsByClassName("el-button ml_button el-button--primary is-plain")[0]
+        obj_class_old.className = "el-button ml_button el-button--success is-plain";
+        // 给点击的按钮加颜色
+        let obj_class = document.getElementsByClassName("el-button ml_button el-button--success is-plain")[name - 1]
+        obj_class.className = "el-button ml_button el-button--primary is-plain";
+    };
+
+
+    //点击打开
+    $(document).click(function (e) {
+        let value = e.target.id;
+        if (value) {
+            if (Main.editableTabsValue !== old) {
+                loadings(Main.editableTabsValue);
+                old = Main.editableTabsValue;
+            }
+            if (value == "share1" || value == "share2" || value == "share3") {
+                window.open(Main.editableTabs[Main.editableTabsValue - 1].url, "_blank");
+            }
+            if (value == "catalogue1" || value == "catalogue2" || value == "catalogue3") {
+                Main.CatalogueVisible = true;
+            }
+        }
+    });
+
+    // 完整标题提示
+    var time_set;
+    $(document).mouseover(function (e) {
+        let value = e.target.id;
+        if (value) {
+            if ($("#" + value).attr("tabindex") && value != "share1" && value != "share2" && value != "share3" && value != "catalogue1" && value != "catalogue2" && value != "catalogue3") {
+                let index = value.lastIndexOf("\-");
+                index = value.substring(index + 1, value.length);
+                document.getElementById("el-tooltip-5519").innerHTML = Main.editableTabs[index - 1].title;
+                document.getElementById("el-tooltip-5519").style.display = "block"; window.clearTimeout(time_set);
+                window.clearTimeout(time_set);
+                time_set = window.setTimeout(function () {
+                    document.getElementById("el-tooltip-5519").style.display = "none";
+                }, 2500);
+            }
+        }
+    });
+
+    window.onload = async function () {
+
+        var word = parent.KeyWords();
+        var email = parent.User_emails();
+        let res = await axios.post('/Search/Inject', {
+            keyword: word,
+            email: email,
+        });
+        // 赋予生命
+        Main.editableTabs = res.data;
+        setTimeout(function () {
+            loadings(1);
+        }, 1);
+        Main.CatalogueVisible = true;
+        setTimeout(function () {
+            let obj_class = document.getElementsByClassName("el-button ml_button el-button--success is-plain")[0]
+            obj_class.className = "el-button ml_button el-button--primary is-plain";
+        }, 1)
+        Main.loading_all = false;
+        document.getElementById("loa").style.display = "none";
+    };
+
+    var Main = new Vue({
+        el: '#app',
+        data() {
+            return {
+                CatalogueVisible: false,
+                loading: false,
+                editableTabsValue: 1,
+                editableTabs: [
+                ],
+                tabIndex: 3,
+                loading_all: true
+            }
+        },
+        methods: {
+            removeTab(targetName) {
+                let tabs = this.editableTabs;
+                let activeName = this.editableTabsValue;
+                if (activeName === targetName) {
+                    tabs.forEach((tab, index) => {
+                        if (tab.name === targetName) {
+                            let nextTab = tabs[index + 1] || tabs[index - 1];
+                            if (nextTab) {
+                                activeName = nextTab.name;
+                            }
+                        }
+                    });
+                }
+                this.editableTabsValue = activeName;
+                this.editableTabs = tabs.filter(tab => tab.name !== targetName);
+                loadings(activeName);
+            }
+        }
+    });
+</script>

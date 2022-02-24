@@ -1,0 +1,223 @@
+body,
+html {
+  height: 100%;
+  margin: 0;
+  position: absolute;
+  width: 100%;
+  overflow: hidden;
+  font-family: "STHeiti";
+}
+body {
+  background: #fff;
+  display: none;
+  height: 100%;
+}
+.all {
+  height: 100%;
+  width: 100%;
+}
+.OverallSituation {
+  height: 100%;
+  width: 100%;
+}
+.info_all {
+  width: 100%;
+  overflow: auto;
+}
+.Option {
+  float: left;
+  width: 80%;
+  height: 1px;
+}
+.FrequencyUse {
+  width: 470px;
+  height: 168px;
+  padding: 0;
+  margin-left: 0;
+}
+.Picture {
+  height: auto;
+}
+.LoginButton {
+  width: 110%;
+  max-width: 90px;
+  height: 32px;
+  float: right;
+}
+.Search {
+  width: 100%;
+}
+.Search .el-card__body {
+  padding: 0;
+}
+.Search-Box-style {
+  max-width: 584px;
+  width: auto;
+  height: 46px;
+}
+.Search-box {
+  width: 80px;
+  border-radius: 20px;
+}
+.Search .el-input {
+  font-size: 14px;
+  display: inline-block;
+  width: 100%;
+}
+.Search .el-card {
+  border: 1px solid #dfe1e5;
+  border-radius: 47px;
+}
+.Search .el-input__inner {
+  padding: 0;
+}
+.Search-icon {
+  float: left;
+  width: 7%;
+  margin-left: 9px;
+  margin-top: 14px;
+}
+.Search-input {
+  float: left;
+  width: 88%;
+  margin-left: 4px;
+  margin-top: 8px;
+}
+.Search-style {
+  padding: 22px;
+  height: 46px;
+}
+.Search .el-input__inner {
+  height: 30px;
+  border-width: 0px;
+  font-size: 17px;
+}
+.OverallSituation .el-dialog {
+  border-radius: 12px;
+}
+.OverallSituation .el-dialog__body {
+  padding: 0 30px 14px 30px;
+}
+.OverallSituation .el-form-item__content {
+  margin-left: 0px !important;
+  padding: 5px 15px 0 15px;
+}
+.OverallSituation .el-tabs__header {
+  margin-bottom: 30px !important;
+}
+.OverallSituation .el-link {
+  padding: 0px 9px 4px 0px;
+}
+.UserAnalysis {
+  width: 100%;
+  height: 2970px;
+}
+.ch-tooltip {
+  margin-left: 18px;
+}
+.user_title {
+  color: #21291ecf;
+  font-size: 22px;
+  margin-top: 30px;
+  font-weight: bold;
+}
+.Search .el-input__inner {
+  outline: none;
+}
+.Search .el-dialog {
+  padding: 0 !important;
+  margin: 0 !important;
+  width: auto !important;
+}
+.LoginStatus {
+  min-width: 62px;
+  position: fixed;
+  right: 20px;
+  margin: 0;
+  top: 10px;
+  z-index: 1;
+  overflow: visible;
+  box-shadow: none;
+}
+.Search .el-dialog__wrapper {
+  overflow: hidden;
+}
+.Search .el-dialog__body {
+  padding: 5px 20px 20px 20px;
+}
+.Search .el-dialog__header {
+  padding: 0px;
+}
+.el-tabs--left .el-tabs__header.is-left {
+  margin-right: 0px;
+}
+.more {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  right: 0;
+  margin: 0;
+  top: 3px;
+  z-index: 1;
+  overflow: visible;
+  box-shadow: none;
+}
+.refreshContent {
+  position: fixed;
+  padding: -40px;
+  width: 100%;
+  top: 10px;
+  z-index: 1;
+  overflow: visible;
+  padding: 0px 0px 0px 170px;
+}
+.more:hover {
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  background-color: rgb(220, 220, 220);
+}
+.col-md-12option {
+  margin: -14px 409px 0px 18px;
+  z-index: 1;
+  overflow: visible;
+  box-shadow: none;
+}
+.el-tabs--left.el-tabs--card .el-tabs__item.is-left {
+  text-align: center !important;
+}
+.input_tips {
+  z-index: 999;
+  margin-top: -26px;
+  position: absolute;
+  margin-left: 8px;
+  color: #5ea9ab;
+}
+.user_crad {
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
+}
+#cal-heatmap {
+  padding: 21px 0 0 0;
+}
+.el-col {
+  border-radius: 4px;
+}
+.bg-purple-dark {
+  background: #99a9bf;
+}
+.bg-purple {
+  background: #d3dce6;
+}
+.bg-purple-light {
+  background: #e5e9f2;
+}
+.grid-content {
+  border-radius: 4px;
+  min-height: 36px;
+}
+.row-bg {
+  padding: 10px 0;
+  background-color: #f9fafc;
+}
+.el-dropdown-menu {
+  margin-top: 43px !important;
+}

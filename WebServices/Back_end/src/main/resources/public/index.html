@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>NoBug</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=500,user-scalable=no">
+    <!-- require APlayer -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+    <!-- require MetingJS -->
+    <script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+    <!-- Ico -->
+    <link href="https://pic.imgdb.cn/item/60c00b0e844ef46bb23c42ee.png" rel="SHORTCUT ICON">
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.2/index.min.js"></script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.2/theme-chalk/index.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script type="text/javascript" src="//d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+    <script src="./js/cdn/echarts.min.js"></script>
+    <script src="./js/cdn/echarts-wordcloud.min.js"></script>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+
+<body>
+
+    <div class="all" id="all">
+        <template>
+            <el-tabs :tab-position='"left"' v-model="LeftSideMenuTabsValue" type="card" closable
+                @tab-remove="LeftSideMenuTabs_removeTab">
+                <!--搜索页面-->
+                <el-tab-pane label="首页">
+                    <div class="OverallSituation" id="Major">
+                        <!--内容-->
+                        <div class="LoginStatus" id="LoginStatus">
+                            <div style="float:right">
+                                <!--登录按钮-->
+                                <el-button id="login-btn" @click="Login_flage=true" class="LoginButton" size="mini"
+                                    type="primary"> 登 录
+                                </el-button>
+                                <!--用户信息-->
+                                <el-dropdown id="login-win">
+                                    <el-button size="mini" class="LoginButton" type="primary">
+                                        <span id="user_name"></span><i class="el-icon-arrow-down el-icon--right"></i>
+                                    </el-button>
+                                    <el-dropdown-menu slot="dropdown">
+                                        <el-dropdown-item>
+                                            <el-button type="text"
+                                                @click="RightSideMenu();document.getElementById('tab-1').click();">
+                                                信息&nbsp;&nbsp;
+                                            </el-button>
+                                        </el-dropdown-item>
+                                        <el-dropdown-item>
+                                            <el-popover placement="top" width="160" v-model="visible">
+                                                <p>需要登录才能使用哦~ 你确定要退出登录吗？</p>
+                                                <div style="text-align: right; margin: 0">
+                                                    <el-button type="text" size="mini" @click="logout">嗯嗯，我知道
+                                                    </el-button>
+                                                    <el-button size="mini" type="primary" @click="visible = false">不用了
+                                                    </el-button>
+                                                </div>
+                                                <a slot="reference">退出登录</a>
+                                            </el-popover>
+
+                                        </el-dropdown-item>
+                                    </el-dropdown-menu>
+                                </el-dropdown>
+                            </div>
+                            <!--tools-->
+                            <div style="float:right;margin-right: 21px;margin-top: 5px;">
+                                <el-badge is-dot>
+                                    <el-link id="todo_tips" target="_blank" href="/todo/index.html" icon="el-icon-edit">
+                                        待办事项</el-link>
+                                </el-badge>
+                                <el-link target="_blank" href="/download/index.html"><i
+                                        class="el-icon-view el-icon--right"></i>下载客户端</i> </el-link>
+                            </div>
+                        </div>
+                        <!--登录注册框-->
+                        <el-dialog title="NoBug - 登录注册" :visible.sync="Login_flage" width="360px" center>
+                            <template>
+                                <!--登录框-->
+                                <el-tabs v-model="activeName" stretch>
+                                    <!--登录-->
+                                    <el-tab-pane label="登录" name="first">
+                                        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px"
+                                            class="demo-ruleForm">
+                                            <el-form-item prop="user">
+                                                <el-input type="text" placeholder="请输入邮箱" required="required"
+                                                    v-model="ruleForm.user" prefix-icon="el-icon-user-solid">
+                                                </el-input>
+                                            </el-form-item>
+                                            <el-form-item prop="pass">
+                                                <el-input type="password" placeholder="请输入密码" prefix-icon="el-icon-lock"
+                                                    v-model="ruleForm.pass"
+                                                    @keyup.enter.native="toSubmitForm('ruleForm')">
+                                                </el-input>
+                                            </el-form-item>
+                                            <el-switch v-model="auto_log" active-color="#13ce66"
+                                                inactive-color="#ff4949" style="margin-left: 15px;margin-bottom: 15px"
+                                                active-text="自动登录 (15天)">
+                                            </el-switch>
+                                            <el-form-item>
+                                                <el-button style="margin-left: 100px;"
+                                                    v-loading.fullscreen.lock="LogoLoading"
+                                                    element-loading-text="正在登录中..." :disabled="inshow"
+                                                    @click="SignInCheckAndVerify" type="primary">
+                                                    登录
+                                                </el-button>
+                                            </el-form-item>
+                                        </el-form>
+                                    </el-tab-pane>
+                                    <!--注册-->
+                                    <el-tab-pane label="注册" name="second">
+                                        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="demo-ruleForm">
+                                            <el-form-item prop="user1">
+                                                <el-input type="text" placeholder="用户名" required="required"
+                                                    v-model="ruleForm.user1" prefix-icon="el-icon-user-solid">
+                                                </el-input>
+                                            </el-form-item>
+                                            <el-form-item prop="pass1">
+                                                <el-input class="phone-input" placeholder="邮箱" v-model="ruleForm.pass1"
+                                                    prefix-icon="el-icon-mobile-phone">
+                                                </el-input>
+                                            </el-form-item>
+                                            <el-form-item prop="code" class="phone" v-show="yzmshow">
+                                                <el-input v-model="ruleForm.code" style="width:120px" placeholder="验证码"
+                                                    :minlength="6" :maxlength="6">
+                                                </el-input>
+                                                <!--发送邮箱模块-->
+                                                <el-button type="primary" v-loading.fullscreen.lock="fullscreenLoading"
+                                                    @click="getCode()" class="code-btn" :disabled="!show"
+                                                    element-loading-text="正在发送验证码...">
+                                                    <span v-show="show">发送验证码</span>
+                                                    <span v-show="!show" class="count">{{ count }} </span>
+                                                </el-button>
+                                            </el-form-item>
+                                            <el-form-item prop="pass">
+                                                <el-input type="password" placeholder="请输入密码" v-model="ruleForm.pass"
+                                                    prefix-icon="el-icon-lock"></el-input>
+                                            </el-form-item>
+                                            <el-form-item prop="checkPass">
+                                                <el-input type="password" placeholder="请再次输入密码"
+                                                    v-model="ruleForm.checkPass" prefix-icon="el-icon-lock">
+                                                </el-input>
+                                            </el-form-item>
+                                            <el-switch v-model="auto_log" active-color="#13ce66"
+                                                inactive-color="#ff4949" style="margin-left: 15px;margin-bottom: 15px"
+                                                active-text="自动登录 (15天)">
+                                            </el-switch>
+                                            <el-form-item class="btn-form">
+                                                <el-button style="margin-left: 100px;"
+                                                    v-loading.fullscreen.lock="LogoLoading"
+                                                    element-loading-text="正在登录中..." :disabled="upshow" type="primary"
+                                                    @click="SignUpCheckAndVerify">
+                                                    注册</el-button>
+                                            </el-form-item>
+                                        </el-form>
+                                    </el-tab-pane>
+                                </el-tabs>
+                            </template>
+                        </el-dialog>
+                    </div>
+                    <!--Logo图片-->
+                    <div class="Picture">
+                        <div id="Interval" style="height:8vh;"></div>
+                        <div style="width:100%;" align="center"><img draggable="false" src="1.png" width="360px"></div>
+                    </div>
+                    <!--查询框-->
+                    <div class="Search">
+                        <div align="center" class="Search-style">
+                            <el-card class="Search-Box-style" shadow="hover">
+                                <div class="Search-icon" @click="Confirm_Input">
+                                    <svg t="1623202928490" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                        xmlns="http://www.w3.org/2000/svg" p-id="1258" width="16" height="16">
+                                        <path
+                                            d="M448 768c176.725333 0 320-143.274667 320-320 0-176.725333-143.274667-320-320-320-176.725333 0-320 143.274667-320 320 0 176.725333 143.274667 320 320 320z m0 42.666667c-200.298667 0-362.666667-162.368-362.666667-362.666667S247.701333 85.333333 448 85.333333s362.666667 162.368 362.666667 362.666667-162.368 362.666667-362.666667 362.666667z m304.917333-27.584a21.333333 21.333333 0 0 1 30.165334-30.165334l150.848 150.848a21.333333 21.333333 0 0 1-30.165334 30.165334l-150.848-150.826667z"
+                                            fill="#3D3D3D" p-id="1259"></path>
+                                    </svg>
+                                </div>
+                                <div class="Search-input">
+                                    <el-input id="search" @keyup.enter.native="Confirm_Input" v-model="input"
+                                        maxlength="70" minlength="1" class="Search-box">
+                                    </el-input>
+                                    <div class="input_tips">
+                                        {{input_tips}}
+                                    </div>
+                                </div>
+                            </el-card>
+                        </div>
+                    </div>
+                    <!--页脚-->
+                    <div class="Footer">
+                        <div style="padding: 16px;">
+
+                        </div>
+                    </div>
+
+                </el-tab-pane>
+                <!--用户信息页面-->
+                <el-tab-pane label="信息">
+                    <div class="info_all" align="center">
+                        <div id="UserInfo" style="height: 2000px;" class="UserInfo">
+                            <div style="padding:10px">
+                                <!--用户信息数据-->
+                                <div class="UserAnalysis" align="center">
+                                    <!--用户信息自定义-->
+                                    <div class="refreshContent">
+                                        <el-tooltip content="刷新内容" placement="left" effect="light">
+                                            <el-button icon="el-icon-refresh-right" @click="refresh_data"
+                                                :loading="refresh_data_flage" circle>
+                                            </el-button>
+                                        </el-tooltip>
+                                    </div>
+                                    <div class="user_title">
+                                        自定义
+                                    </div>
+                                    <div style="
+                                        background: #8c8c8c;
+                                        height: 4px;
+                                        width: 142px;
+                                        border-radius: 100px;
+                                        margin: 11px;
+                                        "></div>
+                                    <div class="user_crad" style="height:231px;width:470px">
+                                        <div style="padding:20px;">
+                                            <!--性能调整-->
+                                            <div class="block" style="height:124px" style="text-align:center;">
+                                                <span style="font-size:20px;color: #151515;"
+                                                    class="demonstration">性能调整</span>
+                                                <p></p>
+                                                <el-link target="_blank"
+                                                    href="https://juejin.cn/post/6844904159292948487" target="_blank">
+                                                    通过调整 内容加载线程的 并发/异步 程度来优化性能</el-link>
+                                                <el-link></el-link>
+                                                <el-slider :marks="marks" v-model="speeds" :step="10" show-stops>
+                                                </el-slider>
+                                            </div>
+                                            <hr>
+                                            <!--设置音乐歌单-->
+                                            <div style="text-align:left; margin-top:20px;">
+                                                <font style="font-size: 20px;color: #464646;">设置音乐歌单
+                                                </font>&nbsp;&nbsp;
+                                                <el-input style="width:150px;height:30px;" v-model="input_musicid"
+                                                    placeholder="默认:6586243036"></el-input>
+                                                </el-input>
+
+                                                <el-button @click="update_musicid" size="mini" type="primary">提交
+                                                </el-button>
+                                                <el-link href="http://m.jxjatv.com/xinwen/5826.html">
+                                                    &nbsp;&nbsp;获取帮助</el-link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--用户使用频率-->
+                                    <div class="user_title">
+                                        贡献值
+                                    </div>
+                                    <div style="
+                                        background: #8c8c8c;
+                                        height: 4px;
+                                        width: 142px;
+                                        border-radius: 100px;
+                                        margin: 11px;
+                                    "></div>
+                                    <div class="FrequencyUse user_crad">
+                                        <!--svg-->
+                                        <div id="cal-heatmap" class="col-md-12"></div>
+                                        <!--Option-->
+                                        <div class="col-md-12 col-md-12option">
+                                            <div style="height:1px;"></div>
+                                            <label class="label label-default" id="previousSelector-a-previous">
+                                                <i id="FrequencyUse_flage" class="el-icon-back"></i>
+                                            </label>
+                                            <label class="label label-default" id="previousSelector-a-next">
+                                                <i class="el-icon-right"></i>
+                                            </label>
+                                            <div style="height:2px;"></div>
+                                        </div>
+                                    </div>
+                                    <!-- 领域图 -->
+                                    <div class="user_title">
+                                        领域分析
+                                    </div>
+                                    <div style="
+                                        background: #8c8c8c;
+                                        height: 4px;
+                                        width: 142px;
+                                        border-radius: 100px;
+                                        margin: 11px;
+                                        "></div>
+                                    <div id="generate_domain_diagram" class="user_crad"
+                                        style="height:600px;width:470px">
+                                    </div>
+                                    <!-- 领域图 -->
+                                    <div class="user_title">
+                                        技术标签
+                                    </div>
+                                    <div style="
+                                        background: #8c8c8c;
+                                        height: 4px;
+                                        width: 142px;
+                                        border-radius: 100px;
+                                        margin: 11px;
+                                        "></div>
+                                    <div id="ci_yun" class="user_crad" style="height:511px;width:470px">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </el-tab-pane>
+                <el-tab-pane label="热点">
+
+                </el-tab-pane>
+
+                <!--adds-->
+                <el-tab-pane v-loading="loading_body" element-loading-text="正在拼命加载中..୧(๑•̀⌄•́๑)૭"
+                    v-for="(item, index) in LeftSideMenuTabs" :key="item.name" :label="item.title" :name="item.name">
+                </el-tab-pane>
+            </el-tabs>
+            <!--扩展-->
+            <div id="music"></div>
+            <div onclick="RightSideMenu()" id="more" class="more" align="center">
+                <svg style="margin-top: 5px;" width="26px" height="26px" focusable="false" viewBox="0 0 24 24"
+                    fill="#5f6368">
+                    <path
+                        d="M6,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM16,6c0,1.1 0.9,2 2,2s2,-0.9 2,-2 -0.9,-2 -2,-2 -2,0.9 -2,2zM12,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2z">
+                    </path>
+                </svg>
+            </div>
+        </template>
+    </div>
+
+
+    <!--JS-->
+    <script type="text/javascript" src="./js/main.js"></script>
+</body>
+
+</html>

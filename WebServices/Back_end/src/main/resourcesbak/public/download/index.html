@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset=" UTF-8">
+    <title>NoBug下载</title>
+    <link href="https://pic.imgdb.cn/item/60c00b0e844ef46bb23c42ee.png" rel="SHORTCUT ICON">
+    <script src="./js/jquery-3.6.0.min.js"></script>
+    <script src="./js/downJS.js"></script>
+    <link rel="stylesheet" href="downCSS.css" type="text/css">
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.9/vue.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.2/index.min.js"></script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.2/theme-chalk/index.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="down_web">
+
+        <div id="top_div" align="center">
+            <div id="top_body">
+                <div id="logo_img_box">
+                    <el-link href="http://nobug.wiki" target="_blank" title="点击直接访问网页版" id="go_web">网页版</el-link>
+                </div>
+                <div id="down_body">
+                    <div id="down_body_right">
+                        <span id="title">
+                            <h2>NoBug Wiki</h2>
+                        </span>
+                        <div id="btns">
+
+                            <a href="#" download="NoBugWiki安装包.zip">
+                                <el-badge value="new">
+                                    <el-button @click="win" class="btn" title="Windows版本下载">
+                                        <img src="./img/windows.png" class="btnImg" align="absBottom">
+                                        Windows下载
+                                    </el-button>
+                                </el-badge>
+                            </a>
+                            <br>
+                            <br>
+                            <div id="erre" style="transform: scale(0.8);opacity:0.8;">
+                                <a href="#">
+                                    <el-badge value="升级中.." type="warning">
+                                        <button class="btn_no" title="Linux版本下载">
+                                            <img src="./img/linux.png" class="btnImg" align="absBottom">
+                                            Linux下载
+                                        </button>
+                                    </el-badge>
+                                </a>
+                                <a href="#" title="Mac版本下载">
+                                    <el-badge value="升级中.." type="warning">
+                                        <button class="btn_no">
+                                            <img src="./img/mac.png" class="btnImg" align="absBottom">
+                                            Mac下载
+                                        </button>
+                                    </el-badge>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="foot" align="center">
+            <div id="foot_body">
+                <p id="info_msg">
+                    针对您开发问题的解决方案
+                </p>
+                <p id="author_info">
+                    Copyright &copy; 2021 NOBUG.WIKI
+
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

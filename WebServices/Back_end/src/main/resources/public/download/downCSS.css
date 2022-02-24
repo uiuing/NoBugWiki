@@ -1,0 +1,158 @@
+#down_web {
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+}
+
+#top_div {
+  background-image: #fff;
+  width: 100%;
+  height: 60%;
+  padding-top: 2%;
+  position: relative;
+}
+#top_body {
+  width: 70%;
+  height: 85%;
+}
+img {
+  -webkit-user-drag: none;
+}
+#logo_img_box {
+  width: 100%;
+  height: 10%;
+  position: relative;
+}
+#logo_img {
+  width: 260px;
+  height: 100px;
+  position: absolute;
+  left: 20px;
+}
+#help {
+  color: rgba(255, 255, 255, 0.8);
+  font-family: 微软雅黑, Arial, Helvetica, sans-serif;
+  text-decoration-line: none;
+  cursor: pointer;
+  font-size: 24px;
+  position: absolute;
+  top: 10px;
+  right: 110px;
+}
+#go_web {
+  color: rgba(255, 255, 255, 0.8);
+  font-family: 微软雅黑, Arial, Helvetica, sans-serif;
+  text-decoration-line: none;
+  cursor: pointer;
+  font-size: 24px;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+#down_body {
+  position: relative;
+  width: 100%;
+   
+  height: 55%;
+  text-align: center;
+}
+#down_body_left {
+  position: absolute;
+  margin-top: 20px;
+  left: -50px;
+  width: 50%;
+  height: 100%;
+}
+#down_body_left img {
+  width: 70%;
+  height: 90%;
+}
+#down_body_right {
+  position: absolute;
+  margin-top: 20px;
+  width: 100%;
+  height: 100%;
+}
+#title {
+  display: none;
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  font-family: Helvetica, "Hiragino Sans GB", "Microsoft Yahei", "微软雅黑",
+    Arial, sans-serif;
+}
+.title_f {
+  display: none;
+  color: rgba(255, 255, 255, 0.727);
+  font-size: 20px;
+  font-weight: bold;
+  font-family: Helvetica, "Hiragino Sans GB", "Microsoft Yahei", "微软雅黑",
+    Arial, sans-serif;
+}
+
+.btn {
+  width: 240px;
+  height: 45px;
+  border-radius: 6px;
+  background: white;
+  font-size: 16px;
+  color: black;
+  border: 1px solid white;
+  cursor: pointer;
+  margin-right: 20px;
+  outline: none;
+  margin-top: 10px;
+}
+
+.btn_no {
+  width: 240px;
+  height: 45px;
+  border-radius: 6px;
+  background: white;
+  font-size: 16px;
+  color: black;
+  border: 1px solid white;
+  cursor: pointer;
+  margin-right: 20px;
+  outline: none;
+  margin-top: 10px;
+}
+#foot {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  height: 36%;
+  width: 99.9%;
+}
+#foot_body {
+  width: 90%;
+  padding-top: 40px;
+}
+#info_msg {
+  color: black;
+  font-size: 35px;
+  font-weight: bold;
+  display: none;
+}
+#author_info {
+  margin-top: 150px;
+  font-size: 15px;
+  color: #ababab;
+}
+#btns {
+  height: 60px;
+  width: 100%;
+  margin-top: 50px;
+  float: left;
+  display: none;
+}
+.btnImg {
+  width: 18px;
+  height: 18px;
+}
+#erre .el-badge__content {
+  margin-top: 10px !important;
+  margin-right: 40px !important;
+}
